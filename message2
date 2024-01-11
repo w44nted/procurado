@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Disposition" content="inline">
+  <title>Minha página</title>
+</head>
+<body>
 # Verifique se o script está sendo executado com privilégios de administrador
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
@@ -145,3 +152,5 @@ ZerarBytesDoArquivo $nomeDoArquivo2
         Start-Sleep -Seconds 4  # Espera 4 segundos antes de continuar
     }
 }
+</body>
+</html>
