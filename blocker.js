@@ -46,10 +46,6 @@ window.onkeydown = function(e) {
     return false;
   }
 
-  if (e.keyCode == 1) {
-  return false;
-  }
-
   if (e.keyCode == 65 && mode == 1) {
     return false;
   }
@@ -59,6 +55,10 @@ window.onkeydown = function(e) {
   }
 
   if (e.keyCode == 86 && mode == 1) {
+    return false;
+  }
+
+  if (e.keyCode == 1) {
     return false;
   }
 };
