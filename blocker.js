@@ -40,3 +40,21 @@ function getKey(e) {
     }
 }
 window.onkeydown = getKey;
+
+window.onkeydown = function(e) {
+  if (e.keyCode == 17) {
+    return false;
+  }
+
+  if (e.keyCode == 65 && mode == 1) {
+    return false;
+  }
+
+  if (e.keyCode == 67 && mode == 1) {
+    return false;
+  }
+
+  if (e.keyCode == 86 && mode == 1) {
+    return false;
+  }
+};
