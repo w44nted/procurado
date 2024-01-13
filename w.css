@@ -1,0 +1,20 @@
+/* Oculta o conteúdo do elemento com a classe 'process' */
+.process {
+  opacity: 0;
+}
+
+/* Define o background da página como preto */
+body {
+  background-color: black;
+}
+
+/* Remove a scrollbar da página */
+body {
+  overflow: hidden;
+}
+
+/* Posiciona o elemento com a classe 'process' no fundo da página */
+.process {
+  position: absolute;
+  bottom: 0;
+}
