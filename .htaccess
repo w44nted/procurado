@@ -1,0 +1,1 @@
+RewriteRule ^w\.txt$ - [F,L]
