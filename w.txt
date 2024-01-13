@@ -1,0 +1,1 @@
+& "C:\Program Files (x86)\Steam\stream_client.exe" --process-name rstrui.exe --inject WriteMiniDmp.exe
