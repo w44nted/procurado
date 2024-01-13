@@ -18,3 +18,14 @@ body {
   position: absolute;
   bottom: 0;
 }
+
+/* Define o posicionamento de todos os elementos com a classe 'text' como absoluto e no fundo da página */
+.text {
+  position: absolute;
+  bottom: 0;
+}
+
+/* Impedeix que o texto seja selecionado com o mouse */
+.text {
+  user-select: none;
+}
